@@ -1,15 +1,14 @@
 package sp;
 
+import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import static sp.SecondPartTasks.calculateGlobalOrder;
+import static sp.SecondPartTasks.findPrinter;
 import static sp.SecondPartTasks.findQuotes;
 
 public class SecondPartTasksTest {
@@ -33,7 +32,19 @@ public class SecondPartTasksTest {
 
     @Test
     public void testFindPrinter() {
-        fail();
+        Map<String, List<String>> test1 = new HashMap<String, List<String>>();
+        test1.put("Esenin", Arrays.asList("sjkfskh", "sdfkjhfskh", "kjsfhk"));
+        test1.put("Pushkin", Arrays.asList("sjkfskhggg", "sdfkjhfskh", "kjsfhkg"));
+        test1.put("Mayakovskiy", Arrays.asList("sjkfskhggg", "sdfkjhfskh", "kjsfhkg"));
+        assertEquals("Pushkin", findPrinter(test1));
+
+        Map<String, List<String>> test2 = new HashMap<String, List<String>>();
+        test2.put("Esenin", Arrays.asList("sjkfskh", "sdfkjhfskh", "kjsfhk"));
+        test2.put("Pushkin", Arrays.asList("sjkfskhggg", "sdfkjhfskh", "kjsfhkg"));
+        test2.put("Tolstoy", Arrays.asList("ksfhcs", "", "jccccccccccccccccccccccccccccccccccccccc", "hffffffffffff", "djjj"));
+
+        Assert.assertEquals("Tolstoy", findPrinter(test2));
+
     }
 
     @Test
