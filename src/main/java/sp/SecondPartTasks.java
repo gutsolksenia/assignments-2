@@ -2,14 +2,18 @@ package sp;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public final class SecondPartTasks {
 
-    private SecondPartTasks() {}
+    private SecondPartTasks() {
+    }
 
     // Найти строки из переданных файлов, в которых встречается указанная подстрока.
     public static List<String> findQuotes(List<String> paths, CharSequence sequence) {
-        throw new UnsupportedOperationException();
+        return paths.stream()
+                .filter(s -> s.contains(sequence))
+                .collect(Collectors.toList());
     }
 
     // В квадрат с длиной стороны 1 вписана мишень.
@@ -28,6 +32,9 @@ public final class SecondPartTasks {
     // Вы крупный поставщик продуктов. Каждая торговая сеть делает вам заказ в виде Map<Товар, Количество>.
     // Необходимо вычислить, какой товар и в каком количестве надо поставить.
     public static Map<String, Integer> calculateGlobalOrder(List<Map<String, Integer>> orders) {
-        throw new UnsupportedOperationException();
+        return orders.stream()
+                .flatMap(a -> a.entrySet()
+                        .stream())
+                .collect(Collectors.groupingBy(Map.Entry::getKey, Collectors.summingInt(Map.Entry::getValue)));
     }
 }
