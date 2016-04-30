@@ -1,15 +1,20 @@
 package sp;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public final class SecondPartTasks {
 
-    private SecondPartTasks() {}
+    private SecondPartTasks() {
+    }
 
     // Найти строки из переданных файлов, в которых встречается указанная подстрока.
     public static List<String> findQuotes(List<String> paths, CharSequence sequence) {
-        throw new UnsupportedOperationException();
+        return paths.stream()
+                .filter(s -> s.contains(sequence))
+                .collect(Collectors.toList());
     }
 
     // В квадрат с длиной стороны 1 вписана мишень.
@@ -22,12 +27,23 @@ public final class SecondPartTasks {
     // Дано отображение из имени автора в список с содержанием его произведений.
     // Надо вычислить, чья общая длина произведений наибольшая.
     public static String findPrinter(Map<String, List<String>> compositions) {
-        throw new UnsupportedOperationException();
+        return compositions.entrySet()
+                .stream()
+                .max(Comparator.comparing(
+                        a -> a.getValue()
+                                .stream()
+                                .mapToInt(String::length)
+                                .sum()))
+                .map(Map.Entry::getKey)
+                .orElse(null);
     }
 
     // Вы крупный поставщик продуктов. Каждая торговая сеть делает вам заказ в виде Map<Товар, Количество>.
     // Необходимо вычислить, какой товар и в каком количестве надо поставить.
     public static Map<String, Integer> calculateGlobalOrder(List<Map<String, Integer>> orders) {
-        throw new UnsupportedOperationException();
+        return orders.stream()
+                .flatMap(a -> a.entrySet()
+                        .stream())
+                .collect(Collectors.groupingBy(Map.Entry::getKey, Collectors.summingInt(Map.Entry::getValue)));
     }
 }
